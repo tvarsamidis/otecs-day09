@@ -2,7 +2,7 @@ package model;
 
 public class Team {
     private String name;
-    private Player[] players;
+    private Player[] players = new Player[2];
 
     public Team(String name) {
         this.name = name;
