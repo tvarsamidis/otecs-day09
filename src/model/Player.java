@@ -25,4 +25,15 @@ public class Player {
     public void setAbility(int ability) {
         this.ability = ability;
     }
+
+
+    public int compareAbility(Player p2) {
+        if (this.getAbility() < p2.getAbility()) {
+            return -1;
+        } else if (this.getAbility() == p2.getAbility()) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 }

@@ -1,7 +1,13 @@
 import model.Player;
 import model.Team;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class MainApp {
 
@@ -35,24 +41,50 @@ public class MainApp {
         Team firstTeam = new Team("OTE Career Shift");
         Team secondTeam = new Team("Ampelokipi Power");
 
-        firstTeam.getPlayers()[0] = p1;
-        firstTeam.getPlayers()[1] = p4;
+//        firstTeam.getPlayers()[0] = p1;
+//        firstTeam.getPlayers()[1] = p4;
+        List<Player> members = firstTeam.getPlayers();
+        members.add(p1);
+        members.add(p2);
+        //members.clear();
+        members.add(1, p1);
+        members.remove(0);
+        System.out.println(members.size());
+
         firstTeam.setTeamLeader(p4);
 
-        Player[] players2 = new Player[2];
-        players2[0] = p2;
-        players2[1] = p3;
+        Player firstPlayer = members.get(0);
+
+
+        List<Player> players2 = List.of(p2, p3);
+
         secondTeam.setPlayers(players2);
-        secondTeam.setTeamLeader(secondTeam.getPlayers()[0]);
+
+
+
+        secondTeam.setTeamLeader(secondTeam.getPlayers().get(0));
 
         playGame(firstTeam, secondTeam);
+
+
+        for (int i = 0; i < members.size(); i++) {
+            Player p = members.get(i);
+            System.out.println("The team also has player " + p.getName());
+        }
+
+        for (Player p: members) {
+            System.out.println("The team also has player " + p.getName());
+        }
+
+        Set<Player> people = new HashSet<>();
+
 
     }
 
     private static void playGame(Team team1, Team team2) {
-        Player p1 = chooseRandomPlayer(team1);
-        Player p2 = chooseRandomPlayer(team2);
-        int result = compareAbility(p1, p2);
+        Player p1 = team1.chooseRandomPlayer();
+        Player p2 = team2.chooseRandomPlayer();
+        int result = p1.compareAbility(p2);
         Team winningTeam = null;
         if (result < 0) {
             winningTeam = team2;
@@ -67,21 +99,7 @@ public class MainApp {
         }
     }
 
-    private static int compareAbility(Player p1, Player p2) {
-        if (p1.getAbility() < p2.getAbility()) {
-            return -1;
-        } else if (p1.getAbility() == p2.getAbility()) {
-            return 0;
-        } else {
-            return 1;
-        }
-    }
 
-    public static Player chooseRandomPlayer(Team team) {
-        int position = (int) (Math.random() * team.getPlayers().length);
-        Player player = team.getPlayers()[position];
-        return player;
-    }
 
 
 }
